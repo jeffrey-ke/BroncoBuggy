@@ -72,8 +72,8 @@ void startTest(){
 void forward(int duration){
   rightServo.write(0);
   leftServo.write(180);
-  for(int i = 0; i < duration; i++){
-    delay(1);
+  for(int i = 0; i < duration%1000; i++){
+    delay(1000);
     if(isDark()){
       digitalWrite(H_LITE, HIGH);
     }else {
