@@ -58,14 +58,37 @@ void setup() {
   
 }
 
+//Note: forward is R0 and L180
 void loop() {
-//  backUp(10000);
-  delay(1000);
+  if(digitalRead(BUTTON_INPUT) == HIGH){
+    startTest();
+  }
+}
+
+void startTest(){
+  forward(1000);
+}
+
+void forward(int duration){
+  rightServo.write(0);
+  leftServo.write(180);
+  for(int i = 0; i < duration; i++){
+    delay(1);
+    if(isDark()){
+      digitalWrite(H_LITE, HIGH);
+    }else {
+      delay(1000);
+      duration -= 1000;
+      digitalWrite(H_LITE, LOW);
+    }
+  }
+  rightServo.write(90);
+  leftServo.write(90);
 }
 
 void backUp(int duration){
   rightServo.write(0);
-  leftServo.write(0);
+  leftServo.write(180);
   for(int i = 0; i < duration/400; i++){
     tone(OUT_PIZ, 200);
     delay(200);
@@ -81,7 +104,7 @@ void turn(int turnDir, int duration){
   digitalWrite(L_BLK, LOW);
   digitalWrite(R_BLK, LOW);
   if(turnDir == left){
-    rightServo.write(180);
+    rightServo.write(0);
     leftServo.write(90); //stops left wheel
   } else {
     leftServo.write(180);
