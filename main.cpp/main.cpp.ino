@@ -90,9 +90,11 @@ void backUp(int duration){
   rightServo.write(0);
   leftServo.write(180);
   for(int i = 0; i < duration/400; i++){
-    tone(OUT_PIZ, 200);
+    tone(OUT_PIZ, 400);
+    digitalWrite(B_LITE, HIGH);
     delay(200);
     noTone(OUT_PIZ);
+    digitalWrite(B_LITE, LOW);
     delay(200);
   }
   delay(duration%400);
